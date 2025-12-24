@@ -72,10 +72,10 @@ public class SearchApplication {
                     )
     public String createProduct(@RequestBody Product product) {
         if (ProductService.createProduct(product)) {
-            return "Created Product = " + product.toString();
+            return "Product created successfully";
         }
 
-        return "Creation failed for Product = " + product.toString();
+        return "Product creation failed";
     }
 
 
