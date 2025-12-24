@@ -10,12 +10,22 @@
 - Check "use auto-imports"
 - Finish
 
-# Porject Structure
+# Project Structure
 - Basic project structure,
 
 ![screen shot 2018-03-04 at 8 51 41 pm](https://user-images.githubusercontent.com/4599623/36947121-e26d7dea-1fed-11e8-9304-b029bb075687.png)
 
 - If the root has any src/ folder then delete it. No problem.
+
+# Architecture Diagram
+
+```mermaid
+flowchart LR
+    Client[API Consumer] -->|"HTTP 8100"| Search[Search Module<br/>Spring Boot Web]
+    Search -->|depends on| Common[Common Module<br/>Shared library]
+    Common --> Domain[(Product model<br/>ProductService)]
+    Search --> Endpoints[[/search/hello<br/>/search/product/{id}<br/>/search/products<br/>/search/product/create]]
+```
 
 # Create Modules
 - We will create two modules:
