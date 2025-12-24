@@ -1,5 +1,19 @@
 # Spring Boot Multi Module using Gradle
 
+## 📊 Dependency Graph
+
+For a comprehensive view of the project's module structure and dependencies, see [DEPENDENCY_GRAPH.md](./DEPENDENCY_GRAPH.md).
+
+Quick commands:
+```bash
+# View project structure
+./gradlew printProjectStructure
+
+# View module dependencies
+./gradlew :common:dependencies
+./gradlew :search:dependencies
+```
+
 # Requirements
 - Gradle
 - IntelliJ

@@ -2,6 +2,7 @@ group 'com'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'project-report'
 
 sourceCompatibility = 21
 targetCompatibility = 21
@@ -12,4 +13,59 @@ repositories {
 
 dependencies {
     testImplementation group: 'junit', name: 'junit', version: '4.12'
+}
+
+// Task to generate dependency graph for all modules
+task generateDependencyGraph {
+    group = 'documentation'
+    description = 'Generates dependency reports for all modules'
+    
+    dependsOn subprojects.collect { it.tasks.matching { task -> task.name == 'dependencies' } }
+    
+    doLast {
+        println "\n" + "=".multiply(80)
+        println "Dependency Graph Generation Complete"
+        println "=".multiply(80)
+        println "\nTo view detailed reports, run:"
+        println "  ./gradlew htmlDependencyReport"
+        println "\nTo view dependencies for a specific module:"
+        println "  ./gradlew :common:dependencies"
+        println "  ./gradlew :search:dependencies"
+        println "=".multiply(80) + "\n"
+    }
+}
+
+// Task to print project structure
+task printProjectStructure {
+    group = 'documentation'
+    description = 'Prints the project module structure and dependencies'
+    
+    doLast {
+        println "\n" + "=".multiply(80)
+        println "PROJECT STRUCTURE: ${rootProject.name}"
+        println "=".multiply(80)
+        
+        println "\nRoot Project: ${rootProject.name}"
+        println "  Group: ${rootProject.group}"
+        println "  Version: ${rootProject.version}"
+        
+        subprojects.each { project ->
+            println "\n  Module: ${project.name}"
+            println "    Path: ${project.path}"
+            
+            def moduleDeps = project.configurations.findByName('implementation')
+            if (moduleDeps) {
+                println "    Dependencies:"
+                moduleDeps.dependencies.each { dep ->
+                    if (dep instanceof ProjectDependency) {
+                        println "      - [Module] ${dep.dependencyProject.name}"
+                    } else {
+                        println "      - [External] ${dep.group}:${dep.name}:${dep.version}"
+                    }
+                }
+            }
+        }
+        
+        println "\n" + "=".multiply(80) + "\n"
+    }
 }
