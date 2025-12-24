@@ -1,0 +1,10 @@
+CVE-ID,Severity,CWE,CVSS,Title,File,Line,Description,Impact,Fix Effort,Priority
+CVE-001,Critical,CWE-754,7.5,NoSuchElementException Leading to Information Disclosure,SearchApplication.java,53,Optional.get() without checking if value present,Information disclosure via stack traces,Low,1
+CVE-002,Critical,CWE-362,8.1,Thread Safety Violation - Race Condition,ProductService.java,"7,20-32",Non-thread-safe ArrayList with race conditions in ID generation,Data corruption and duplicate IDs,High,2
+CVE-003,Critical,CWE-20,9.1,Missing Input Validation,SearchApplication.java + Product.java,"73,27-37",No validation on user inputs enabling XSS and injection,XSS and injection attacks possible,Medium,3
+CVE-004,High,CWE-209,5.3,Information Disclosure via Error Messages,SearchApplication.java,74-78,Detailed error messages expose internal data,Information leakage in responses,Low,7
+CVE-005,High,CWE-391,6.5,Insufficient Exception Handling,ProductService.java,24-32,Catches all exceptions and suppresses details,Security events invisible to monitoring,Low,4
+CVE-006,High,CWE-495,6.5,Direct Exposure of Mutable Collection,ProductService.java,20-22,Returns direct reference to internal list,External modification of internal state,Low,5
+CVE-007,High,CWE-20,5.3,Missing Path Variable Validation,SearchApplication.java,45-54,No validation on path parameter ID,Enumeration attacks and resource waste,Low,6
+CVE-008,Medium,CWE-693,4.3,Missing Security Headers,application.properties,N/A,No security headers configured,Clickjacking and MIME sniffing attacks,Medium,8
+CVE-009,Medium,CWE-352,4.3,Missing CSRF Protection and Auth,SearchApplication.java,All endpoints,No CSRF protection or authentication,CSRF attacks and unauthorized access,High,9
