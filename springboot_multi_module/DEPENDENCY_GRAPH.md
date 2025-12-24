@@ -1,5 +1,34 @@
 # Spring Boot Multi-Module Dependency Graph
 
+## Quick Start
+
+### Generate Dependency Reports
+
+Use the provided script to generate all dependency reports:
+
+```bash
+./generate-dependency-graph.sh
+```
+
+This will generate:
+- Console output with project structure
+- Dependency trees for each module
+- HTML report at `build/reports/project/dependencies/index.html`
+
+### Manual Commands
+
+```bash
+# View project structure
+./gradlew printProjectStructure
+
+# View module dependencies
+./gradlew :common:dependencies
+./gradlew :search:dependencies
+
+# Generate HTML report
+./gradlew htmlDependencyReport
+```
+
 ## Quick Overview
 
 This document provides a comprehensive view of the dependencies in this Spring Boot multi-module project.
