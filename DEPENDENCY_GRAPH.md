@@ -1,5 +1,16 @@
 # Dependency Graph
 
+## 📁 Repository Structure
+
+This repository contains multiple projects. Each project has its own dependency documentation:
+
+### Spring Boot Multi-Module Project
+- **Location**: `springboot_multi_module/`
+- **Detailed Documentation**: [springboot_multi_module/DEPENDENCY_GRAPH.md](./springboot_multi_module/DEPENDENCY_GRAPH.md)
+- **Quick Start**: Run `cd springboot_multi_module && ./generate-dependency-graph.sh`
+
+---
+
 ## Project Overview
 This is a Spring Boot multi-module Gradle project consisting of two modules:
 - **common**: A library module with shared business logic
@@ -188,11 +199,118 @@ The application runs on port 8100 (configured in search module's application.pro
 
 ## Dependency Graph Generation
 
+### Quick Start - Automated Script
+
+For the easiest way to generate all dependency reports, use the provided script:
+
+```bash
+cd springboot_multi_module
+./generate-dependency-graph.sh
+```
+
+This script will:
+1. Generate project structure overview
+2. Display dependency trees for each module
+3. Create comprehensive dependency reports
+4. Generate an HTML report viewable in your browser
+
+### Manual Commands
+
 To generate detailed dependency reports, use the Gradle tasks defined in the root `build.gradle`:
 
 ```bash
+# Navigate to the project directory
+cd springboot_multi_module
+
 # Generate dependency report for all modules
 ./gradlew generateDependencyGraph
 
-# View the report in build/reports/project/dependencies/
+# Print project structure and module dependencies
+./gradlew printProjectStructure
+
+# Generate HTML report (opens in browser)
+./gradlew htmlDependencyReport
+# View at: build/reports/project/dependencies/index.html
+
+# View dependencies for specific modules
+./gradlew :common:dependencies
+./gradlew :search:dependencies
+```
+
+### Available Gradle Tasks
+
+Custom tasks added for dependency analysis:
+
+| Task | Description |
+|------|-------------|
+| `printProjectStructure` | Displays module hierarchy and dependencies in console |
+| `generateDependencyGraph` | Generates comprehensive dependency reports for all modules |
+| `htmlDependencyReport` | Creates browseable HTML report with full dependency tree |
+
+---
+
+## Tools and Artifacts Created
+
+This dependency graph implementation includes:
+
+1. **📄 Documentation Files**:
+   - `DEPENDENCY_GRAPH.md` (root) - High-level overview
+   - `springboot_multi_module/DEPENDENCY_GRAPH.md` - Detailed dependency documentation with Mermaid diagrams
+
+2. **🔧 Gradle Tasks**:
+   - `printProjectStructure` - Console output of project structure
+   - `generateDependencyGraph` - Comprehensive dependency report generation
+
+3. **📜 Automation Script**:
+   - `generate-dependency-graph.sh` - One-command dependency graph generation
+
+4. **📊 Visual Diagrams**:
+   - Mermaid diagrams showing module relationships
+   - Class-level dependency diagrams
+   - Complete dependency trees
+
+5. **📈 Reports**:
+   - HTML dependency reports (generated on demand)
+   - Console-based dependency trees
+   - Module structure overview
+
+---
+
+## Usage Examples
+
+### View Project Structure
+```bash
+cd springboot_multi_module
+./gradlew printProjectStructure
+```
+
+Output:
+```
+PROJECT STRUCTURE: springboot-multi-module
+Root Project: springboot-multi-module
+  Group: com
+  Version: 1.0-SNAPSHOT
+  
+  Module: common
+    Dependencies:
+      - [External] org.springframework.boot:spring-boot-starter
+      
+  Module: search
+    Dependencies:
+      - [External] org.springframework.boot:spring-boot-starter-actuator
+      - [External] org.springframework.boot:spring-boot-starter-web
+      - [Module] common
+```
+
+### Generate All Reports
+```bash
+cd springboot_multi_module
+./generate-dependency-graph.sh
+```
+
+### View HTML Report
+```bash
+cd springboot_multi_module
+./gradlew htmlDependencyReport
+# Then open: build/reports/project/dependencies/index.html
 ```
